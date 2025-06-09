@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Learning Cards - 小学生低学年向け</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #4a90e2 0%, #7b68ee 50%, #9370db 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #4a90e2;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(255,255,255,0.3);
+        }
+        
+        .section {
+            margin-bottom: 25px;
+            padding: 20px;
+            border: 2px solid #7b68ee;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%);
+        }
+        
+        .section h3 {
+            margin-top: 0;
+            color: #4a90e2;
+            border-bottom: 2px solid #7b68ee;
+            padding-bottom: 10px;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px;
+            border: 2px solid #9370db;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        
+        .checkbox-item:hover {
+            border-color: #7b68ee;
+            background: #f0f8ff;
+            transform: translateY(-1px);
+        }
+        
+        .checkbox-item input[type="checkbox"]:checked + label {
+            color: #4a90e2;
+            font-weight: bold;
+        }
+        
+        .radio-group {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 15px;
+            border: 2px solid #9370db;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .radio-item:hover {
+            border-color: #7b68ee;
+            background: #f0f8ff;
+            transform: translateY(-1px);
+        }
+        
+        .radio-item input[type="radio"]:checked + label {
+            color: #4a90e2;
+            font-weight: bold;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #4a90e2 0%, #7b68ee 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s;
+            margin: 5px;
+            box-shadow: 0 2px 8px rgba(74, 144, 226, 0.3);
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(74, 144, 226, 0.4);
+            background: linear-gradient(135deg, #357abd 0%, #6a5acd 100%);
+        }
+        
+        button:disabled {
+            background: #a0aec0;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .game-area {
+            text-align: center;
+            margin-top: 30px;
+            padding: 30px;
+            background: linear-gradient(135deg, #4a90e2 0%, #7b68ee 50%, #9370db 100%);
+            border-radius: 15px;
+            color: white;
+            box-shadow: 0 8px 32px rgba(74, 144, 226, 0.3);
+        }
+        
+        .current-word {
+            font-size: 3em;
+            font-weight: bold;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        
+        .progress {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .memory-game-area {
+            text-align: center;
+            margin-top: 30px;
+            padding: 30px;
+            background: linear-gradient(135deg, #32cd32 0%, #228b22 50%, #006400 100%);
+            border-radius: 15px;
+            color: white;
+            box-shadow: 0 8px 32px rgba(50, 205, 50, 0.3);
+        }
+        
+        .memory-words-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 8px;
+            margin: 20px 0;
+            max-height: 500px;
+            overflow-y: auto;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+        
+        .memory-word-card {
+            background: white;
+            color: #333;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            min-height: 55px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .memory-word-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+            background: #f8f9fa;
+        }
+        
+        .memory-word-card:active {
+            transform: translateY(0);
+            background: #e8f5e8;
+        }
+        
+        .memory-word-english {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 3px;
+        }
+        
+        .memory-word-japanese {
+            font-size: 11px;
+            color: #666;
+            font-weight: normal;
+        }
+        
+        .memory-info {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
+        
+        .word-management {
+            margin-top: 30px;
+            border-top: 3px solid #e2e8f0;
+            padding-top: 20px;
+        }
+        
+        .add-category-form {
+            background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%);
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #7b68ee;
+        }
+        
+        textarea {
+            font-family: inherit;
+            font-size: 14px;
+            padding: 10px;
+            border: 2px solid #9370db;
+            border-radius: 6px;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: #7b68ee;
+            box-shadow: 0 0 0 3px rgba(123, 104, 238, 0.2);
+        }
+        
+        input[type="text"], select {
+            padding: 8px 12px;
+            border: 2px solid #9370db;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        
+        input[type="text"]:focus, select:focus {
+            outline: none;
+            border-color: #7b68ee;
+            box-shadow: 0 0 0 3px rgba(123, 104, 238, 0.2);
+        }
+        
+        input[type="checkbox"], input[type="radio"] {
+            margin: 0;
+        }
+        
+        .checkbox-item input[type="checkbox"]:disabled,
+        .radio-item input[type="radio"]:disabled {
+            opacity: 0.5;
+        }
+        
+        .checkbox-item:has(input:disabled),
+        .radio-item:has(input:disabled) {
+            opacity: 0.6;
+            cursor: not-allowed;
+            border-color: #e2e8f0;
+            background: #f7fafc;
+        }
+        
+        .checkbox-item:has(input:disabled):hover,
+        .radio-item:has(input:disabled):hover {
+            transform: none;
+            border-color: #e2e8f0;
+            background: #f7fafc;
+        }
+        
+        @media (max-width: 600px) {
+            body, .container {
+                padding: 6px !important;
+                max-width: 100vw !important;
+            }
+            
+            .section, .add-category-form, .game-area, .memory-game-area {
+                padding: 10px !important;
+                font-size: 16px !important;
+                margin-bottom: 15px !important;
+            }
+            
+            .controls {
+                flex-direction: column !important;
+                gap: 8px !important;
+            }
+            
+            .current-word {
+                font-size: 2em !important;
+                min-height: 48px !important;
+            }
+            
+            button {
+                font-size: 16px !important;
+                padding: 10px 0 !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+            
+            input[type="text"], textarea, select {
+                font-size: 16px !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                box-sizing: border-box !important;
+            }
+            
+            .checkbox-group, .radio-group {
+                flex-direction: column !important;
+                gap: 8px !important;
+            }
+            
+            .checkbox-item {
+                font-size: 14px !important;
+            }
+            
+            h1 {
+                font-size: 1.8em !important;
+            }
+            
+            .memory-words-grid {
+                grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)) !important;
+                gap: 6px !important;
+                max-height: 400px !important;
+            }
+            
+            .memory-word-card {
+                padding: 10px 6px !important;
+                min-height: 45px !important;
+            }
+            
+            .memory-word-english {
+                font-size: 13px !important;
+            }
+            
+            .memory-word-japanese {
+                font-size: 10px !important;
+            }
+            
+            .add-category-form div {
+                margin-bottom: 10px !important;
+            }
+            
+            .add-category-form label {
+                font-size: 14px !important;
+            }
+            
+            textarea {
+                min-height: 80px !important;
+            }
+            
+            .add-category-form div[style*="font-size: 12px"] {
+                font-size: 12px !important;
+                line-height: 1.4 !important;
+            }
+        }
+        
+        label {
+            cursor: pointer;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎓 English Learning Cards<br><span style="font-size: 0.5em; color: #666;">小学生低学年向け（160語）</span></h1>
+        
+        <div class="section">
+            <h3>📂 カテゴリ選択</h3>
+            <div class="checkbox-group">
+                <div class="checkbox-item">
+                    <input type="checkbox" id="colors" value="colors">
+                    <label for="colors">色 15語</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="numbers" value="numbers">
+                    <label for="numbers">数字 20語</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="shapes" value="shapes">
+                    <label for="shapes">形 10語</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="animals" value="animals">
+                    <label for="animals">動物 20語</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="food" value="food">
+                    <label for="food">食べ物 15語</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="clothes" value="clothes">
+                    <label for="clothes">服 12語</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="family" value="family">
+                    <label for="family">家族 12語</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="body" value="body">
+                    <label for="body">体 15語</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="school" value="school">
+                    <label for="school">学校用品 10語</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="days" value="days">
+                    <label for="days">曜日 7語</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="weather" value="weather">
+                    <label for="weather">天気 8語</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="greetings" value="greetings">
+                    <label for="greetings">挨拶 10語</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="places" value="places">
+                    <label for="places">場所 6語</label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h3>🎮 学習モード</h3>
+            <div class="radio-group">
+                <div class="radio-item">
+                    <input type="radio" id="karuta-mode" name="mode" value="karuta" checked>
+                    <label for="karuta-mode">カルタモード</label>
+                </div>
+                <div class="radio-item">
+                    <input type="radio" id="memory-mode" name="mode" value="memory">
+                    <label for="memory-mode">神経衰弱モード</label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h3>🔤 順序設定</h3>
+            <div class="radio-group">
+                <div class="radio-item">
+                    <input type="radio" id="natural" name="order" value="natural" checked>
+                    <label for="natural">順番通り</label>
+                </div>
+                <div class="radio-item">
+                    <input type="radio" id="alphabetical" name="order" value="alphabetical">
+                    <label for="alphabetical">ABC順</label>
+                </div>
+                <div class="radio-item">
+                    <input type="radio" id="random" name="order" value="random">
+                    <label for="random">ランダム</label>
+                </div>
+            </div>
+        </div>
+        
+        
+        <div style="text-align: center;">
+            <button onclick="startGame()" id="start-btn">🎮 カルタモード開始</button>
+            <div id="memory-mode-note" style="display: none; margin-top: 10px; padding: 15px; background: #e8f5e8; border-radius: 8px; color: #2d5a2d; border-left: 4px solid #32cd32;">
+                <strong>🎴 神経衰弱モードについて</strong><br>
+                カテゴリを選択すると自動で単語が表示されます。<br>
+                単語をタップして発音を確認できます。<br>
+                カテゴリや順序はリアルタイムで変更可能です。
+            </div>
+        </div>
+        
+        <div class="game-area" id="game-area" style="display: none;">
+            <div class="progress" id="progress">準備中...</div>
+            <div class="current-word" id="current-word">単語が表示されます</div>
+            
+            <div class="controls">
+                <button onclick="repeatCurrentWord()" id="repeat-btn">🔄 もう一度読む</button>
+                <button onclick="nextWord()" id="next-btn">▶️ 次へ</button>
+                <button onclick="previousWord()" id="previous-btn">◀️ 戻る</button>
+            </div>
+            <div class="controls" style="margin-top: 10px;">
+                <button onclick="restartGame()" id="restart-btn" style="background: linear-gradient(135deg, #32cd32 0%, #228b22 100%);">🔄 最初から</button>
+                <button onclick="endGame()" id="end-btn">⏹️ 終了</button>
+            </div>
+        </div>
+        
+        <div class="memory-game-area" id="memory-game-area" style="display: none;">
+            <div class="memory-info" id="memory-info">選択した単語をタップして発音を確認できます</div>
+            <div class="memory-words-grid" id="memory-words-grid">
+                <!-- 単語カードがここに表示されます -->
+            </div>
+            
+            <div class="controls">
+                <button onclick="endMemoryGame()" id="memory-end-btn">⏹️ 終了</button>
+            </div>
+        </div>
+        
+        <div class="word-management">
+            <h3>📂 新しいカテゴリを追加</h3>
+            <div style="background: #e6f3ff; padding: 15px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid #4a90e2;">
+                <h4 style="margin: 0 0 8px 0; color: #4a90e2; font-size: 14px;">✨ カスタム単語機能</h4>
+                <p style="margin: 0; font-size: 13px; color: #666; line-height: 1.4;">
+                    今日使いたいカードの単語を登録することもできます！<br>
+                    メモ帳などで単語リストを準備してコピペするとスムーズです。<br>
+                    <span style="color: #4a90e2; font-weight: bold;">読み上げは英語のみ対応しています</span><br>
+                    <span style="color: #999; font-size: 12px;">※リロードや閉じると消えます（一時的な追加機能）</span>
+                </p>
+            </div>
+            <div class="add-category-form">
+                <div style="margin-bottom: 15px;">
+                    <label for="new-category-name" style="display: block; margin-bottom: 5px; font-weight: bold;">カテゴリ名:</label>
+                    <input type="text" id="new-category-name" placeholder="例: 乗り物、楽器、季節など" style="width: 100%; max-width: 300px;">
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label for="new-words-list" style="display: block; margin-bottom: 5px; font-weight: bold;">単語リスト:</label>
+                    <textarea id="new-words-list" rows="5" placeholder="car/車, bus/バス, train/電車" style="width: 100%; max-width: 500px; resize: vertical;"></textarea>
+                    <div style="font-size: 12px; color: #666; margin-top: 5px;">
+                        💡 カンマ区切りで入力してください（最大40個）<br>
+                        📝 <strong>入力方法：</strong><br>
+                        • 英語のみ：<code>car, bus, train</code><br>
+                        • 日本語付き：<code>car/車, bus/バス, train/電車</code><br>
+                        • 混在もOK：<code>car, bus/バス, train</code>
+                    </div>
+                </div>
+                <button onclick="addCategory()" style="background: linear-gradient(135deg, #32cd32 0%, #228b22 100%);">➕ カテゴリを追加</button>
+            </div>
+            <div style="margin-top: 20px; padding: 15px; background: #e6f3ff; border-radius: 8px; border-left: 4px solid #4a90e2;">
+                <h4 style="margin: 0 0 10px 0; color: #4a90e2;">📈 小学生向け学習のコツ</h4>
+                <p style="margin: 0; font-size: 14px; color: #666;">
+                    <strong>基礎から応用へ：</strong>色・数字→動物・食べ物→学校生活→日常会話<br>
+                    <strong>毎日の習慣：</strong>朝の時間に5分間、夜寝る前に復習<br>
+                    <strong>実生活との連携：</strong>学校で習った単語をアプリで確認
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 小学生低学年向け160語の単語データ
+        let wordData = {
+            colors: [
+                {english: 'red', japanese: '赤'}, {english: 'blue', japanese: '青'}, {english: 'yellow', japanese: '黄色'},
+                {english: 'green', japanese: '緑'}, {english: 'pink', japanese: 'ピンク'}, {english: 'white', japanese: '白'},
+                {english: 'black', japanese: '黒'}, {english: 'orange', japanese: 'オレンジ'}, {english: 'purple', japanese: '紫'},
+                {english: 'brown', japanese: '茶色'}, {english: 'gray', japanese: '灰色'}, {english: 'light blue', japanese: '水色'},
+                {english: 'dark green', japanese: '深緑'}, {english: 'gold', japanese: '金色'}, {english: 'silver', japanese: '銀色'}
+            ],
+            numbers: [
+                {english: 'zero', japanese: '0'}, {english: 'one', japanese: '1'}, {english: 'two', japanese: '2'},
+                {english: 'three', japanese: '3'}, {english: 'four', japanese: '4'}, {english: 'five', japanese: '5'},
+                {english: 'six', japanese: '6'}, {english: 'seven', japanese: '7'}, {english: 'eight', japanese: '8'},
+                {english: 'nine', japanese: '9'}, {english: 'ten', japanese: '10'}, {english: 'eleven', japanese: '11'},
+                {english: 'twelve', japanese: '12'}, {english: 'thirteen', japanese: '13'}, {english: 'fourteen', japanese: '14'},
+                {english: 'fifteen', japanese: '15'}, {english: 'sixteen', japanese: '16'}, {english: 'seventeen', japanese: '17'},
+                {english: 'eighteen', japanese: '18'}, {english: 'nineteen', japanese: '19'}
+            ],
+            shapes: [
+                {english: 'circle', japanese: '円'}, {english: 'triangle', japanese: '三角形'}, {english: 'square', japanese: '四角'},
+                {english: 'heart', japanese: 'ハート'}, {english: 'star', japanese: '星'}, {english: 'diamond', japanese: 'ひし形'},
+                {english: 'rectangle', japanese: '長方形'}, {english: 'oval', japanese: '楕円'}, {english: 'line', japanese: '線'},
+                {english: 'dot', japanese: '点'}
+            ],
+            animals: [
+                {english: 'dog', japanese: '犬'}, {english: 'cat', japanese: '猫'}, {english: 'bear', japanese: 'くま'},
+                {english: 'rabbit', japanese: 'うさぎ'}, {english: 'bird', japanese: 'とり'}, {english: 'fish', japanese: 'さかな'},
+                {english: 'elephant', japanese: 'ぞう'}, {english: 'lion', japanese: 'ライオン'}, {english: 'tiger', japanese: 'とら'},
+                {english: 'monkey', japanese: 'さる'}, {english: 'pig', japanese: 'ぶた'}, {english: 'cow', japanese: 'うし'},
+                {english: 'horse', japanese: 'うま'}, {english: 'sheep', japanese: 'ひつじ'}, {english: 'chicken', japanese: 'にわとり'},
+                {english: 'panda', japanese: 'パンダ'}, {english: 'frog', japanese: 'かえる'}, {english: 'snake', japanese: 'へび'},
+                {english: 'turtle', japanese: 'かめ'}, {english: 'duck', japanese: 'あひる'}
+            ],
+            food: [
+                {english: 'apple', japanese: 'りんご'}, {english: 'banana', japanese: 'バナナ'}, {english: 'bread', japanese: 'パン'},
+                {english: 'rice', japanese: 'ごはん'}, {english: 'egg', japanese: 'たまご'}, {english: 'meat', japanese: 'お肉'},
+                {english: 'milk', japanese: 'ミルク'}, {english: 'juice', japanese: 'ジュース'}, {english: 'water', japanese: 'みず'},
+                {english: 'cake', japanese: 'ケーキ'}, {english: 'cookie', japanese: 'クッキー'}, {english: 'pizza', japanese: 'ピザ'},
+                {english: 'soup', japanese: 'スープ'}, {english: 'tea', japanese: 'お茶'}, {english: 'coffee', japanese: 'コーヒー'}
+            ],
+            clothes: [
+                {english: 'shirt', japanese: 'シャツ'}, {english: 'pants', japanese: 'ズボン'}, {english: 'shoes', japanese: 'くつ'},
+                {english: 'hat', japanese: 'ぼうし'}, {english: 'bag', japanese: 'かばん'}, {english: 'socks', japanese: 'くつした'},
+                {english: 'dress', japanese: 'ワンピース'}, {english: 'jacket', japanese: 'ジャケット'}, {english: 'skirt', japanese: 'スカート'},
+                {english: 'boots', japanese: 'ブーツ'}, {english: 'gloves', japanese: '手袋'}, {english: 'scarf', japanese: 'マフラー'}
+            ],
+            family: [
+                {english: 'father', japanese: 'お父さん'}, {english: 'mother', japanese: 'お母さん'}, {english: 'brother', japanese: 'お兄ちゃん'},
+                {english: 'sister', japanese: 'お姉ちゃん'}, {english: 'baby', japanese: 'あかちゃん'}, {english: 'friend', japanese: 'ともだち'},
+                {english: 'grandpa', japanese: 'おじいちゃん'}, {english: 'grandma', japanese: 'おばあちゃん'}, {english: 'teacher', japanese: '先生'},
+                {english: 'student', japanese: '生徒'}, {english: 'boy', japanese: '男の子'}, {english: 'girl', japanese: '女の子'}
+            ],
+            body: [
+                {english: 'head', japanese: 'あたま'}, {english: 'eyes', japanese: 'め'}, {english: 'nose', japanese: 'はな'},
+                {english: 'mouth', japanese: 'くち'}, {english: 'ears', japanese: 'みみ'}, {english: 'hand', japanese: 'て'},
+                {english: 'foot', japanese: 'あし'}, {english: 'hair', japanese: 'かみ'}, {english: 'teeth', japanese: 'は'},
+                {english: 'face', japanese: 'かお'}, {english: 'finger', japanese: 'ゆび'}, {english: 'arm', japanese: 'うで'},
+                {english: 'leg', japanese: 'あし（脚）'}, {english: 'shoulder', japanese: 'かた'}, {english: 'knee', japanese: 'ひざ'}
+            ],
+            school: [
+                {english: 'pen', japanese: 'ペン'}, {english: 'pencil', japanese: 'えんぴつ'}, {english: 'book', japanese: '本'},
+                {english: 'notebook', japanese: 'ノート'}, {english: 'eraser', japanese: '消しゴム'}, {english: 'ruler', japanese: '定規'},
+                {english: 'crayon', japanese: 'クレヨン'}, {english: 'desk', japanese: '机'}, {english: 'chair', japanese: 'いす'},
+                {english: 'blackboard', japanese: '黒板'}
+            ],
+            days: [
+                {english: 'Monday', japanese: '月曜日'}, {english: 'Tuesday', japanese: '火曜日'}, {english: 'Wednesday', japanese: '水曜日'},
+                {english: 'Thursday', japanese: '木曜日'}, {english: 'Friday', japanese: '金曜日'}, {english: 'Saturday', japanese: '土曜日'},
+                {english: 'Sunday', japanese: '日曜日'}
+            ],
+            weather: [
+                {english: 'sunny', japanese: '晴れ'}, {english: 'rainy', japanese: '雨'}, {english: 'cloudy', japanese: '曇り'},
+                {english: 'windy', japanese: '風が強い'}, {english: 'hot', japanese: '暑い'}, {english: 'cold', japanese: '寒い'},
+                {english: 'warm', japanese: '暖かい'}, {english: 'cool', japanese: '涼しい'}
+            ],
+            greetings: [
+                {english: 'hello', japanese: 'こんにちは'}, {english: 'goodbye', japanese: 'さようなら'}, {english: 'thank you', japanese: 'ありがとう'},
+                {english: 'happy', japanese: 'うれしい'}, {english: 'good morning', japanese: 'おはよう'}, {english: 'good night', japanese: 'おやすみ'},
+                {english: 'please', japanese: 'お願いします'}, {english: 'sorry', japanese: 'ごめんなさい'}, {english: 'sad', japanese: '悲しい'},
+                {english: 'angry', japanese: '怒った'}
+            ],
+            places: [
+                {english: 'home', japanese: '家'}, {english: 'school', japanese: '学校'}, {english: 'park', japanese: '公園'},
+                {english: 'store', japanese: 'お店'}, {english: 'library', japanese: '図書館'}, {english: 'hospital', japanese: '病院'}
+            ]
+        };
+        
+        let currentWords = [];
+        let currentIndex = 0;
+        let isGameActive = false;
+        let isMemoryMode = false;
+        let speechInitialized = false;
+        
+        // 音声合成の設定
+        function setupSpeech() {
+            if ('speechSynthesis' in window) {
+                if (!window.speechSynthesis._warmedUp) {
+                    const dummy = new SpeechSynthesisUtterance('...');
+                    dummy.lang = 'en-US';
+                    dummy.rate = 1;
+                    dummy.volume = 0;
+                    dummy.onend = function() {
+                        window.speechSynthesis._warmedUp = true;
+                    };
+                    window.speechSynthesis.speak(dummy);
+                }
+                return true;
+            } else {
+                alert('お使いのブラウザは音声合成に対応していません。');
+                return false;
+            }
+        }
+        
+        // 単語を読み上げる
+        function speakWord(word) {
+            setupSpeech(); // 毎回音声コンテキストを確認・再初期化
+            
+            speechInitialized = true;
+            window.speechSynthesis.cancel();
+            
+            const textToSpeak = typeof word === 'string' ? word : word.english;
+            const utterance = new SpeechSynthesisUtterance(textToSpeak);
+            utterance.lang = 'en-US';
+            utterance.rate = 0.8;
+            utterance.pitch = 1.0;
+            utterance.volume = 1.0;
+            
+            const voices = speechSynthesis.getVoices();
+            const englishVoice = voices.find(voice => 
+                voice.lang.startsWith('en') && 
+                (voice.name.includes('English') || 
+                 voice.name.includes('US') || 
+                 voice.name.includes('United States'))
+            );
+            
+            if (englishVoice) {
+                utterance.voice = englishVoice;
+            }
+            
+            window.speechSynthesis.speak(utterance);
+        }
+        
+        // ゲーム開始
+        function startGame() {
+            setupSpeech();
+            
+            const mode = document.querySelector('input[name="mode"]:checked').value;
+            if (mode === 'memory') return;
+            
+            const selectedCategories = [];
+            document.querySelectorAll('input[type="checkbox"]:checked').forEach(cb => {
+                selectedCategories.push(cb.value);
+            });
+            
+            if (selectedCategories.length === 0) {
+                alert('少なくとも1つのカテゴリを選択してください。');
+                return;
+            }
+            
+            currentWords = [];
+            selectedCategories.forEach(category => {
+                currentWords = currentWords.concat(wordData[category]);
+            });
+            
+            if (currentWords.length === 0) {
+                alert('選択されたカテゴリに単語がありません。');
+                return;
+            }
+            
+            const order = document.querySelector('input[name="order"]:checked').value;
+            if (order === 'alphabetical') {
+                currentWords.sort((a, b) => a.english.localeCompare(b.english));
+            } else if (order === 'random') {
+                for (let i = currentWords.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [currentWords[i], currentWords[j]] = [currentWords[j], currentWords[i]];
+                }
+            }
+            
+            currentIndex = 0;
+            isGameActive = true;
+            isMemoryMode = false;
+            speechInitialized = true;
+            
+            document.getElementById('game-area').style.display = 'block';
+            document.getElementById('start-btn').style.display = 'none';
+            
+            disableSettings();
+            showCurrentWord();
+            
+            setTimeout(() => {
+                if (currentWords.length > 0) {
+                    speakWord(currentWords[0]);
+                }
+            }, 1000);
+        }
+        
+        // 現在の単語を表示
+        function showCurrentWord() {
+            if (currentIndex >= currentWords.length) {
+                endGame();
+                return;
+            }
+            
+            const word = currentWords[currentIndex];
+            const wordText = typeof word === 'string' ? word : word.english;
+            const japaneseText = typeof word === 'string' ? '' : word.japanese;
+            
+            const wordElement = document.getElementById('current-word');
+            if (japaneseText) {
+                wordElement.innerHTML = `${wordText}<br><span style="font-size: 0.6em; color: rgba(255,255,255,0.8);">(${japaneseText})</span>`;
+            } else {
+                wordElement.textContent = wordText;
+            }
+            
+            document.getElementById('progress').textContent = 
+                `${currentIndex + 1} / ${currentWords.length}`;
+            
+            if (speechInitialized && currentIndex > 0) {
+                setTimeout(() => speakWord(word), 500);
+            }
+        }
+        
+        // 神経衰弱モード開始
+        function startMemoryGame() {
+            setupSpeech();
+            
+            isMemoryMode = true;
+            isGameActive = true;
+            speechInitialized = true;
+            
+            document.getElementById('memory-game-area').style.display = 'block';
+            document.getElementById('start-btn').style.display = 'none';
+            
+            updateMemoryGameDisplay();
+        }
+        
+        // 神経衰弱モードの表示更新（リアルタイム対応）
+        function updateMemoryGameDisplay() {
+            if (!isMemoryMode) return;
+            
+            const selectedCategories = [];
+            document.querySelectorAll('input[type="checkbox"]:checked').forEach(cb => {
+                selectedCategories.push(cb.value);
+            });
+            
+            if (selectedCategories.length === 0) {
+                document.getElementById('memory-info').textContent = 'カテゴリを選択してください';
+                document.getElementById('memory-words-grid').innerHTML = '';
+                return;
+            }
+            
+            let memoryWords = [];
+            selectedCategories.forEach(category => {
+                memoryWords = memoryWords.concat(wordData[category]);
+            });
+            
+            const order = document.querySelector('input[name="order"]:checked').value;
+            if (order === 'alphabetical') {
+                memoryWords.sort((a, b) => {
+                    const aText = typeof a === 'string' ? a : a.english;
+                    const bText = typeof b === 'string' ? b : b.english;
+                    return aText.localeCompare(bText);
+                });
+            } else if (order === 'random') {
+                for (let i = memoryWords.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [memoryWords[i], memoryWords[j]] = [memoryWords[j], memoryWords[i]];
+                }
+            }
+            
+            document.getElementById('memory-info').textContent = 
+                `選択中: ${selectedCategories.map(cat => {
+                    const checkbox = document.getElementById(cat);
+                    return checkbox ? checkbox.nextElementSibling.textContent : cat;
+                }).join(', ')} (${memoryWords.length}語)`;
+            
+            const grid = document.getElementById('memory-words-grid');
+            grid.innerHTML = '';
+            
+            memoryWords.forEach(word => {
+                const wordCard = document.createElement('button');
+                wordCard.className = 'memory-word-card';
+                
+                const wordText = typeof word === 'string' ? word : word.english;
+                const japaneseText = typeof word === 'string' ? '' : word.japanese;
+                
+                wordCard.innerHTML = `
+                    <div class="memory-word-english">${wordText}</div>
+                    ${japaneseText ? `<div class="memory-word-japanese">(${japaneseText})</div>` : ''}
+                `;
+                
+                wordCard.onclick = () => {
+                    speakWord(word);
+                    wordCard.style.background = '#e8f5e8';
+                    setTimeout(() => {
+                        wordCard.style.background = 'white';
+                    }, 200);
+                };
+                
+                grid.appendChild(wordCard);
+            });
+        }
+        
+        // モード変更時の表示制御
+        function handleModeChange() {
+            const mode = document.querySelector('input[name="mode"]:checked').value;
+            
+            if (mode === 'memory') {
+                document.getElementById('start-btn').style.display = 'none';
+                document.getElementById('memory-mode-note').style.display = 'block';
+                
+                if (isGameActive && !isMemoryMode) {
+                    endGame();
+                }
+                
+                startMemoryGame();
+                
+            } else {
+                document.getElementById('start-btn').style.display = 'inline-block';
+                document.getElementById('start-btn').textContent = '🎮 カルタモード開始';
+                document.getElementById('memory-mode-note').style.display = 'none';
+                
+                if (isMemoryMode) {
+                    endMemoryGame();
+                }
+            }
+        }
+        
+        // 神経衰弱モード終了
+        function endMemoryGame() {
+            isMemoryMode = false;
+            isGameActive = false;
+            
+            document.getElementById('memory-game-area').style.display = 'none';
+            document.getElementById('start-btn').style.display = 'inline-block';
+            
+            enableSettings();
+        }
+        
+        // 現在の単語を読み上げ
+        function speakCurrentWord() {
+            if (currentIndex < currentWords.length) {
+                speakWord(currentWords[currentIndex]);
+            }
+        }
+        
+        // 現在の単語をもう一度読み上げ
+        function repeatCurrentWord() {
+            if (currentIndex < currentWords.length) {
+                speakWord(currentWords[currentIndex]);
+            }
+        }
+        
+        // ゲームを最初からやり直し
+        function restartGame() {
+            if (!isGameActive) return;
+            
+            if (confirm('🔄 最初からやり直しますか？\n\n現在の進行状況は失われます。')) {
+                const selectedCategories = [];
+                document.querySelectorAll('input[type="checkbox"]:checked').forEach(cb => {
+                    selectedCategories.push(cb.value);
+                });
+                
+                currentWords = [];
+                selectedCategories.forEach(category => {
+                    currentWords = currentWords.concat(wordData[category]);
+                });
+                
+                const order = document.querySelector('input[name="order"]:checked').value;
+                if (order === 'alphabetical') {
+                    currentWords.sort((a, b) => {
+                        const aText = typeof a === 'string' ? a : a.english;
+                        const bText = typeof b === 'string' ? b : b.english;
+                        return aText.localeCompare(bText);
+                    });
+                } else if (order === 'random') {
+                    for (let i = currentWords.length - 1; i > 0; i--) {
+                        const j = Math.floor(Math.random() * (i + 1));
+                        [currentWords[i], currentWords[j]] = [currentWords[j], currentWords[i]];
+                    }
+                }
+                
+                currentIndex = 0;
+                showCurrentWord();
+            }
+        }
+        
+        // 次の単語へ
+        function nextWord() {
+            if (!isGameActive) return;
+            
+            currentIndex++;
+            showCurrentWord();
+        }
+        
+        // 前の単語へ
+        function previousWord() {
+            if (!isGameActive) return;
+            
+            if (currentIndex > 0) {
+                currentIndex--;
+                showCurrentWord();
+            }
+        }
+        
+        // ゲーム終了
+        function endGame() {
+            isGameActive = false;
+            isMemoryMode = false;
+            document.getElementById('game-area').style.display = 'none';
+            document.getElementById('memory-game-area').style.display = 'none';
+            document.getElementById('start-btn').style.display = 'inline-block';
+            
+            enableSettings();
+            
+            if (currentIndex >= currentWords.length) {
+                alert('🎉 すべての単語が終了しました！お疲れさまでした！');
+            }
+        }
+        
+        // 設定を無効化
+        function disableSettings() {
+            if (!isMemoryMode) {
+                document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+                    cb.disabled = true;
+                });
+                document.querySelectorAll('input[name="order"]').forEach(radio => {
+                    radio.disabled = true;
+                });
+            }
+            document.querySelectorAll('input[name="mode"]').forEach(radio => {
+                radio.disabled = true;
+            });
+        }
+        
+        // 設定を有効化
+        function enableSettings() {
+            document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+                cb.disabled = false;
+            });
+            document.querySelectorAll('input[name="order"]').forEach(radio => {
+                radio.disabled = false;
+            });
+            document.querySelectorAll('input[name="mode"]').forEach(radio => {
+                radio.disabled = false;
+            });
+        }
+        
+        // カテゴリと単語を一括追加
+        function addCategory() {
+            const categoryName = document.getElementById('new-category-name').value.trim();
+            const wordsText = document.getElementById('new-words-list').value.trim();
+            
+            if (categoryName === '') {
+                alert('❌ カテゴリ名を入力してください。');
+                return;
+            }
+            
+            if (wordsText === '') {
+                alert('❌ 単語を入力してください。');
+                return;
+            }
+            
+            const words = wordsText.split(',').map(word => word.trim()).filter(word => word !== '');
+            
+            if (words.length === 0) {
+                alert('❌ 有効な単語を入力してください。');
+                return;
+            }
+            
+            if (words.length > 40) {
+                alert(`❌ 40個以下にしてください（現在：${words.length}個）`);
+                return;
+            }
+            
+            const categoryKey = categoryName.toLowerCase().replace(/\s+/g, '_');
+            if (wordData[categoryKey]) {
+                alert(`❌ カテゴリ「${categoryName}」は既に存在します。`);
+                return;
+            }
+            
+            // 英語のみ、または英語/日本語形式に対応
+            wordData[categoryKey] = words.map(word => {
+                if (word.includes('/')) {
+                    const [english, japanese] = word.split('/');
+                    return {english: english.trim(), japanese: japanese.trim()};
+                } else {
+                    return {english: word.trim(), japanese: ''};
+                }
+            });
+            
+            addCategoryCheckbox(categoryKey, categoryName);
+            
+            document.getElementById('new-category-name').value = '';
+            document.getElementById('new-words-list').value = '';
+            
+            alert(`✅ カテゴリ「${categoryName}」を追加しました！\n単語数: ${words.length}個`);
+        }
+        
+        // カテゴリ選択にチェックボックスを追加
+        function addCategoryCheckbox(categoryKey, categoryName) {
+            const checkboxGroup = document.querySelector('.checkbox-group');
+            
+            const checkboxItem = document.createElement('div');
+            checkboxItem.className = 'checkbox-item';
+            checkboxItem.innerHTML = `
+                <input type="checkbox" id="${categoryKey}" value="${categoryKey}">
+                <label for="${categoryKey}">${categoryName}</label>
+            `;
+            
+            checkboxGroup.appendChild(checkboxItem);
+        }
+        
+        // キーボードショートカット
+        document.addEventListener('keydown', function(e) {
+            if (!isGameActive) return;
+            
+            if (isMemoryMode) return;
+            
+            if (e.code === 'Space') {
+                e.preventDefault();
+                nextWord();
+            } else if (e.code === 'Enter') {
+                e.preventDefault();
+                speakCurrentWord();
+            } else if (e.code === 'KeyR') {
+                e.preventDefault();
+                repeatCurrentWord();
+            } else if (e.code === 'KeyS' && e.ctrlKey) {
+                e.preventDefault();
+                restartGame();
+            } else if (e.code === 'ArrowLeft') {
+                e.preventDefault();
+                previousWord();
+            } else if (e.code === 'ArrowRight') {
+                e.preventDefault();
+                nextWord();
+            }
+        });
+        
+        // 初期化
+        window.addEventListener('load', function() {
+            setupSpeech();
+            
+            // モード変更のイベントリスナー
+            document.querySelectorAll('input[name="mode"]').forEach(radio => {
+                radio.addEventListener('change', handleModeChange);
+            });
+            
+            // カテゴリ変更のイベントリスナー（神経衰弱モード用リアルタイム更新）
+            document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+                cb.addEventListener('change', function() {
+                    const mode = document.querySelector('input[name="mode"]:checked').value;
+                    if (mode === 'memory') {
+                        updateMemoryGameDisplay();
+                    }
+                });
+            });
+            
+            // 順序変更のイベントリスナー（神経衰弱モード用リアルタイム更新）
+            document.querySelectorAll('input[name="order"]').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    const mode = document.querySelector('input[name="mode"]:checked').value;
+                    if (mode === 'memory') {
+                        updateMemoryGameDisplay();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
